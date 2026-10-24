@@ -152,7 +152,7 @@ const BLOCKED_CMDS = [
 
   // --- self-protection
   'claude plugin disable secops-guard',
-  'claude plugin uninstall secops-guard@marlabs-ailab-ai',
+  'claude plugin uninstall secops-guard@acme-marketplace',
   'echo "{\\"disableAllHooks\\":true}" > ~/.claude/settings.json',
   'export SECOPS_DISABLE=1',
   'setx SECOPS_DISABLE 1',
@@ -388,7 +388,7 @@ const BLOCKED_TOOLS = [
   ['Write a LaunchAgent plist', { tool_name: 'Write', tool_input: { file_path: '~/Library/LaunchAgents/com.acme.updater.plist', content: '<plist/>' } }],
   ['Write a user systemd unit', { tool_name: 'Write', tool_input: { file_path: '~/.config/systemd/user/a.service', content: '[Service]' } }],
   ['Edit managed settings', { tool_name: 'Edit', tool_input: { file_path: '/etc/claude-code/managed-settings.json', old_string: '{}', new_string: '{"a":1}' } }],
-  ['Edit the installed plugin', { tool_name: 'Edit', tool_input: { file_path: `${HOME}/.claude/plugins/marketplaces/marlabs-ailab-ai/plugins/secops-guard/hooks/guard.js`, old_string: 'a', new_string: 'b' } }],
+  ['Edit the installed plugin', { tool_name: 'Edit', tool_input: { file_path: `${HOME}/.claude/plugins/marketplaces/acme-marketplace/plugins/secops-guard/hooks/guard.js`, old_string: 'a', new_string: 'b' } }],
   ['Write into the installed plugin', { tool_name: 'Write', tool_input: { file_path: path.join(HOME, '.claude', 'plugins', 'secops-guard', 'hooks', 'guard.js'), content: '// noop' } }],
   ['Write into the state dir', { tool_name: 'Write', tool_input: { file_path: path.join(HOME, '.claude', 'secops-guard', 'config.json'), content: '{}' } }],
   ['Add disableAllHooks to settings', rcEdit(`${HOME}/.claude/settings.json`, '{"disableAllHooks": true}')],
@@ -422,7 +422,7 @@ const ALLOWED_TOOLS = [
   ['Glob TypeScript files', { tool_name: 'Glob', tool_input: { pattern: '**/*.ts' } }],
   ['Glob certificates in the repo', { tool_name: 'Glob', tool_input: { pattern: 'certs/**/*.pem' } }],
   ['Add a permission to settings.json', rcEdit(`${HOME}/.claude/settings.json`, '{"permissions":{"allow":["Bash(npm run test:*)"]}}')],
-  ['Enable this plugin in settings.json', rcEdit(`${HOME}/.claude/settings.json`, '{"enabledPlugins":{"secops-guard@marlabs-ailab-ai":true}}')],
+  ['Enable this plugin in settings.json', rcEdit(`${HOME}/.claude/settings.json`, '{"enabledPlugins":{"secops-guard@acme-marketplace":true}}')],
   ['Append PATH to .bashrc', rcEdit('~/.bashrc', 'export PATH="$PATH:/opt/bin"')],
   ['Append an alias to .zshrc', rcEdit('~/.zshrc', "alias gs='git status'")],
   ['Write a project systemd unit', { tool_name: 'Write', tool_input: { file_path: 'deploy/systemd/app.service', content: '[Service]' } }],
