@@ -5,6 +5,8 @@
       { "hooks": [ { "type": "command", "command": "node", "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/plugin-integrity.js"], "timeout": 60 } ] }
     ],
     "PreToolUse": [
+      { "matcher": "Read|Grep|Bash|PowerShell",
+        "hooks": [ { "type": "command", "command": "node", "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/redact-env.js"], "timeout": 10 } ] },
       { "matcher": "Bash|PowerShell|Read|Grep|Glob|Edit|Write|MultiEdit|NotebookEdit",
         "hooks": [ { "type": "command", "command": "node", "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/guard.js"], "timeout": 10 } ] },
       { "matcher": "Bash|PowerShell",

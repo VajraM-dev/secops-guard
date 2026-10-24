@@ -37,9 +37,9 @@ PreToolUse hook that returns `permissionDecision: "deny"` blocks the call outrig
 
 The hooks have no npm dependencies. They run on Node with the standard library only.
 
-## 3. The seven hooks
+## 3. The eight hooks
 
-Seven scripts, eight wired entries: `build-gate.js` binds to both `PreToolUse` and
+Eight scripts, nine wired entries: `build-gate.js` binds to both `PreToolUse` and
 `PostToolUse`. Matchers and timeouts below are read from
 `plugins/secops-guard/hooks/hooks.json`.
 
@@ -49,6 +49,7 @@ Seven scripts, eight wired entries: `build-gate.js` binds to both `PreToolUse` a
 | `dep-gate.js` | PreToolUse — `Bash\|PowerShell` | 150s, `onFailure: "block"` | Parses install intents out of the command, resolves each package to the newest non-prerelease version published at least `cooldownDays` ago, OSV-checks that exact version, and **rewrites the command** with the version pinned. Denies on malware, on a vulnerability at or above the threshold, on a package that does not exist in the registry, and on a user-pinned version that is too new. For a bare `npm install` / `uv sync` / `cargo build` it scans the lockfile instead, caching the verdict by lockfile hash. |
 | `manifest-gate.js` | PreToolUse — `Edit\|Write\|MultiEdit` | 60s | The same checks when a dependency is added by editing `package.json`, `pyproject.toml` or `Cargo.toml` directly rather than by running a command. |
 | `block-dangerous.js` | PreToolUse — `Bash\|PowerShell` | 10s | Denies destructive commands: `rm -rf`, `git reset --hard`, force-pushes to protected branches, `DROP TABLE`, `mkfs`, `dd` and similar. |
+| `redact-env.js` | PreToolUse — `Read\|Grep\|Bash\|PowerShell` | 10s | Blocks shell access to `.env` files. A Read of one is denied but returns the keys with values replaced by `<REDACTED>`, so Claude still sees variable names. |
 | `post-install-scan.js` | PostToolUse — `Bash\|PowerShell` | 120s | After an install has run, scans the resulting lockfiles and any built Docker image, and reports findings to Claude. Feedback, not a gate. |
 | `build-gate.js` | PreToolUse — `Bash\|PowerShell`, **and** PostToolUse — `Bash\|PowerShell` | 120s each | Side B. After a build, and before a publish, scans the artifact for CVEs and for baked-in secrets. Reports CVEs; denies on a secret. See below. |
 | `plugin-integrity.js` | SessionStart | 60s | Hashes every installed plugin's hooks, scripts and MCP config, diffs against the last snapshot, and reports added, removed or changed plugins plus any marketplace with `autoUpdate: true`. |
