@@ -336,7 +336,8 @@ function checkCommand(command) {
   // Only when something is actually being written: `grep -r disableAllHooks .` is research.
   // Per segment, so the write verb and the target must be in the SAME command: otherwise
   // `rm -rf build && cat <installed>/guard.js` reads as a rewrite of guard.js.
-  for (const [rawSeg] of segments(norm)) {
+  // Strip `2>&1` before splitting: segments() cuts at its `&`, leaving a bare `>` that reads as a write.
+  for (const [rawSeg] of segments(norm.replace(/\d?>&\d/g, ' '))) {
     // Discarding output is not a write: `diff a b > /dev/null` and `cmd 2>&1` must not read
     // as mutation just because they contain a redirect operator.
     const seg = rawSeg.replace(/\d?>>?\s*\/dev\/null/g, ' ').replace(/\d?>&\d/g, ' ');

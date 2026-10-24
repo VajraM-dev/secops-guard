@@ -160,6 +160,7 @@ const BLOCKED_CMDS = [
   // Same segment only: a write verb here must still be caught when it IS the one touching us.
   'cp /tmp/x.js ~/.claude/hooks/secops-guard/guard.js',
   'echo hi > ~/.claude/hooks/secops-guard/guard.js',
+  'rm -r ~/.claude/plugins/cache/secops-guard/ 2>&1',
   // --- security review regressions. Each of these was ALLOWED and is proven exploitable. ---
   // H3: the shell expands a substitution before the text tool ever sees it, so quoted text
   // in these commands is not inert and must not be masked.
@@ -232,6 +233,7 @@ const ALLOWED_CMDS = [
   'Get-Content README.md',
   'Get-Content .\\package.json -Raw',
   'grep -rn "TODO" src/',
+  'ls ~/.claude/plugins/cache/secops-guard/ 2>&1',
   'rg --files-with-matches token src',
   'cat .npmrc',
   'cat ./config/.netrc.example',

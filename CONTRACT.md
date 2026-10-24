@@ -30,7 +30,7 @@ secops-guard/                         <- repo root (copy this folder to another 
   .claude-plugin/marketplace.json     <- standalone marketplace: plugins[0].source = "./plugins/secops-guard"
   README.md  RELEASE.md  CONTRACT.md
   plugins/secops-guard/
-    .claude-plugin/plugin.json        {name:"secops-guard", version:"0.1.0", description, author:{name:"Prathamesh Kulkarni"}}
+    .claude-plugin/plugin.json        {name:"secops-guard", version:"0.1.1", description, author:{name:"Prathamesh Kulkarni"}}
     hooks/hooks.json
     hooks/lib/config.js               config + allowlist loading
     hooks/lib/io.js                   readStdin(), emit helpers
