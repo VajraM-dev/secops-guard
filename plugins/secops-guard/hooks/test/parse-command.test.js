@@ -193,20 +193,27 @@ test('registries are recorded', () => {
 
 const pins = (o) => new Map(Object.entries(o));
 const REWRITES = [
-  ['npm install lodash', { lodash: 'lodash@4.17.21' }, 'npm install lodash@4.17.21'],
-  ['npm i -D a b && echo done', { a: 'a@1.0.0', b: 'b@2.0.0' }, 'npm i -D a@1.0.0 b@2.0.0 && echo done'],
+  ['npm install lodash', { lodash: 'lodash@4.17.21' }, 'npm install lodash@4.17.21 --save-exact'],
+  ['npm i -D a b && echo done', { a: 'a@1.0.0', b: 'b@2.0.0' }, 'npm i -D a@1.0.0 b@2.0.0 --save-exact && echo done'],
   ['pip install requests', { requests: 'requests==2.31.0' }, 'pip install requests==2.31.0'],
   // Always single-quoted now, whatever the original quoting: one quoting rule is auditable,
   // "preserve what the user typed" is how the injection bug got in.
   ['pip install "fastapi[all]"', { 'fastapi[all]': 'fastapi[all]==0.110.0' }, "pip install 'fastapi[all]==0.110.0'"],
   ['pip install fastapi[all]', { 'fastapi[all]': 'fastapi[all]==0.110.0' }, "pip install 'fastapi[all]==0.110.0'"],
-  ['bash -c "npm i left-pad"', { 'left-pad': 'left-pad@1.3.0' }, 'bash -c "npm i left-pad@1.3.0"'],
+  ['bash -c "npm i left-pad"', { 'left-pad': 'left-pad@1.3.0' }, 'bash -c "npm i left-pad@1.3.0 --save-exact"'],
   // Inside an existing quoted string the value goes in bare: the outer quotes already protect
   // it, and adding our own would close them. If it contained the outer quote char we refuse.
   ["bash -c 'pip install foo[x]'", { 'foo[x]': 'foo[x]==1.0' }, "bash -c 'pip install foo[x]==1.0'"],
   ['cargo install ripgrep --version 13.0.0 --locked', { ripgrep: 'ripgrep@13.0.0' }, 'cargo install ripgrep@13.0.0  --locked'],
   ['npx --package=typescript tsc', { typescript: 'typescript@5.4.5' }, 'npx --package=typescript@5.4.5 tsc'],
-  ['echo lodash && npm i lodash', { lodash: 'lodash@1.0.0' }, 'echo lodash && npm i lodash@1.0.0'],
+  ['echo lodash && npm i lodash', { lodash: 'lodash@1.0.0' }, 'echo lodash && npm i lodash@1.0.0 --save-exact'],
+  // exact-save flag: per manager, and never for runners, globals, or when already given
+  ['pnpm add a', { a: 'a@1.0.0' }, 'pnpm add a@1.0.0 --save-exact'],
+  ['yarn add a', { a: 'a@1.0.0' }, 'yarn add a@1.0.0 --exact'],
+  ['bun add a', { a: 'a@1.0.0' }, 'bun add a@1.0.0 --exact'],
+  ['npm i -g a', { a: 'a@1.0.0' }, 'npm i -g a@1.0.0'],
+  ['npx a', { a: 'a@1.0.0' }, 'npx a@1.0.0'],
+  ['npm i -E a', { a: 'a@1.0.0' }, 'npm i -E a@1.0.0'],
   ['npm i foo', {}, 'npm i foo'],
 ];
 for (const [cmd, map, want] of REWRITES) {

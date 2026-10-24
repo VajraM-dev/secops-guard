@@ -46,7 +46,7 @@ Eight scripts, nine wired entries: `build-gate.js` binds to both `PreToolUse` an
 | File | Event / matcher | Timeout | What it does |
 |---|---|---|---|
 | `guard.js` | PreToolUse — `Bash\|PowerShell\|Read\|Grep\|Glob\|Edit\|Write\|MultiEdit\|NotebookEdit` | 10s | Denies reads of credential stores (everything under `~/.ssh` except `*.pub`, `known_hosts`, `config`, `authorized_keys`; `~/.aws/credentials`, gcloud, `~/.npmrc`, `~/.pypirc`, netrc, `~/.git-credentials`, GitHub CLI token, crates.io token, browser login stores), uploads to paste/callback hosts, obfuscated execution (`curl \| sh`, base64-decoded eval), persistence (cron, autorun, shell profiles), writes to package-manager configs, and any edit to secops-guard's own installed files or state directory. |
-| `dep-gate.js` | PreToolUse — `Bash\|PowerShell` | 150s, `onFailure: "block"` | Parses install intents out of the command, resolves each package to the newest non-prerelease version published at least `cooldownDays` ago, OSV-checks that exact version, and **rewrites the command** with the version pinned. Denies on malware, on a vulnerability at or above the threshold, on a package that does not exist in the registry, and on a user-pinned version that is too new. For a bare `npm install` / `uv sync` / `cargo build` it scans the lockfile instead, caching the verdict by lockfile hash. |
+| `dep-gate.js` | PreToolUse — `Bash\|PowerShell` | 150s, `onFailure: "block"` | Parses install intents out of the command, resolves each package to the newest non-prerelease version published at least `cooldownDays` ago, OSV-checks that exact version, and **rewrites the command** with the version pinned (plus `--save-exact` / `--exact` for npm, pnpm, yarn and bun, so the manifest records the exact version and not a `^` range). Denies on malware, on a vulnerability at or above the threshold, on a package that does not exist in the registry, and on a user-pinned version that is too new. For a bare `npm install` / `uv sync` / `cargo build` it scans the lockfile instead, caching the verdict by lockfile hash. |
 | `manifest-gate.js` | PreToolUse — `Edit\|Write\|MultiEdit` | 60s | The same checks when a dependency is added by editing `package.json`, `pyproject.toml` or `Cargo.toml` directly rather than by running a command. |
 | `block-dangerous.js` | PreToolUse — `Bash\|PowerShell` | 10s | Denies destructive commands: `rm -rf`, `git reset --hard`, force-pushes to protected branches, `DROP TABLE`, `mkfs`, `dd` and similar. |
 | `redact-env.js` | PreToolUse — `Read\|Grep\|Bash\|PowerShell` | 10s | Blocks shell access to `.env` files. A Read of one is denied but returns the keys with values replaced by `<REDACTED>`, so Claude still sees variable names. |
@@ -169,6 +169,12 @@ Both routes end in the same place: hook entries and deny rules in **`~/.claude/s
 > project hook never executes and nothing tells you. Dropping this repo into a project
 > folder gives you a security tool that does not run. `claude -p --settings <file>` does
 > not load hooks either. User scope or plugin scope only.
+
+> Pick **one** route. With both the plain hooks and the plugin installed, every hook runs
+> twice: two copies of each deny, two pin messages, and twice the registry lookups. Moving
+> to the plugin? Remove the `~/.claude/hooks/secops-guard/` entries from
+> `~/.claude/settings.json` and delete that folder, outside Claude Code (guard.js denies it
+> from inside).
 
 ### Route A — plain hooks (what is running on the original machine)
 

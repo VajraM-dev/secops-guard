@@ -647,17 +647,25 @@ function quoteFor(val, pkg) {
 // metacharacter, do not try to quote our way out of it - refuse to rewrite at all.
 const PIN_UNSAFE = /[;&|<>`$()\n\r]/;
 
+const EXACT_FLAG = { npm: '--save-exact', pnpm: '--save-exact', yarn: '--exact', bun: '--exact' };
+
 function rewriteCommand(cmd, pins) {
   const edits = [];
+  const hasExact = /(?:^|\s)(?:--save-exact|--exact|-E)(?=\s|$)/.test(cmd);
   for (const it of parseInstallIntents(cmd)) {
+    // Without this npm saves `^x.y.z`, so a later install without the lockfile skips the check.
+    const exact = !hasExact && it.ecosystem === 'npm' && !it.runner && !it.global ? EXACT_FLAG[it.manager] : null;
+    let last = null;
     for (const p of it.packages || []) {
       if (!pins.has(p.raw) || p.start == null) continue;
       if (PIN_UNSAFE.test(String(pins.get(p.raw)))) return null; // caller must deny, not rewrite
       const q = quoteFor(pins.get(p.raw), p);
       if (q === null) return null;
       edits.push([p.start, p.end, (p.prefix || '') + q]);
+      if (!last || p.start > last[0]) last = edits[edits.length - 1];
       for (const [s, e] of p.drop || []) if (s != null && e != null) edits.push([s, e, '']);
     }
+    if (exact && last) last[2] += ` ${exact}`;
   }
   edits.sort((a, b) => b[0] - a[0]);
   let out = cmd;
