@@ -21,7 +21,7 @@ test('explicit install is pinned via updatedInput with the full tool_input', asy
   const { deps, calls } = fakes({ registry: { 'npm:lodash': '4.17.21' } });
   const r = await decide(bash('npm install lodash && npm test'), deps);
   assert.strictEqual(r.decision, 'allow');
-  assert.deepStrictEqual(r.updatedInput, { command: 'npm install lodash@4.17.21 && npm test', description: 'd' });
+  assert.deepStrictEqual(r.updatedInput, { command: 'npm install lodash@4.17.21 --save-exact && npm test', description: 'd' });
   assert.match(r.context, /pinned lodash -> lodash@4\.17\.21/);
   assert.deepStrictEqual(calls.resolve[0], { eco: 'npm', name: 'lodash', spec: '', days: 7 });
   assert.strictEqual(calls.osv[0][0].version, '4.17.21');
@@ -101,7 +101,7 @@ test('packageSeverityBlock threshold lets lower severities through', async () =>
 test('allowlisted package: no cooldown, no OSV, still pinned', async () => {
   const { deps, calls } = fakes({ config: { allow: new Set(['npm:internal-lib']) }, registry: { 'npm:internal-lib': '0.1.0' } });
   const r = await decide(bash('npm i internal-lib'), deps);
-  assert.strictEqual(r.updatedInput.command, 'npm i internal-lib@0.1.0');
+  assert.strictEqual(r.updatedInput.command, 'npm i internal-lib@0.1.0 --save-exact');
   assert.strictEqual(calls.resolve[0].days, 0);
   assert.strictEqual(calls.osv.length, 0);
 });
