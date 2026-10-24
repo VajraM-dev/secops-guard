@@ -1,0 +1,12 @@
+{
+  "name": "secops-guard",
+  "owner": { "name": "Prathamesh Kulkarni" },
+  "description": "Supply-chain gate, exfiltration guard and security-scan skills for Claude Code",
+  "plugins": [
+    {
+      "name": "secops-guard",
+      "source": "./plugins/secops-guard",
+      "description": "Blocks vulnerable, malicious or too-new dependencies, secret exfiltration, destructive commands and hook tampering; adds dep-audit, sast-scan, appsec-review and plugin-audit skills"
+    }
+  ]
+}

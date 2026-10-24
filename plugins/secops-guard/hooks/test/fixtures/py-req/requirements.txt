@@ -1,0 +1,14 @@
+# pinned
+requests==2.19.0
+Django == 3.2.0 ; python_version >= "3.8"
+urllib3[socks]==1.26.5  # comment
+cryptography==41.0.0 \
+    --hash=sha256:abc \
+    --hash=sha256:def
+flask>=2.0
+numpy
+-e git+https://github.com/x/y.git#egg=y
+-r other.txt
+https://example.com/pkg-1.0.tar.gz
+zope.interface==5.*
+Pillow===9.0.0

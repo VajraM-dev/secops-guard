@@ -1,0 +1,11 @@
+{
+  "name": "secops-guard-repo",
+  "private": true,
+  "license": "MIT",
+  "description": "Dev scripts for the secops-guard Claude Code plugin. The plugin itself has no dependencies and is not an npm package.",
+  "scripts": {
+    "test": "node --test \"plugins/secops-guard/hooks/test/*.test.js\"",
+    "test:live": "node --test plugins/secops-guard/hooks/test/live.test.js",
+    "verify": "node setup/verify.js"
+  }
+}

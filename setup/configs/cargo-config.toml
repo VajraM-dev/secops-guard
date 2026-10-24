@@ -1,0 +1,8 @@
+# secops-guard - cargo / crates.io cooldown
+# Requires Rust >= 1.100 (expected 2026-11-12). Unstable before that: -Zmin-publish-age
+# on nightly since 1.98. The installer skips this file on older toolchains.
+# Related: resolver.incompatible-publish-age defaults to deny.
+# LIMIT: this does NOT cover `cargo install` or git dependencies.
+# Works today instead: `cargo install cargo-cooldown` then run `cargo cooldown <cmd>`.
+[registry]
+global-min-publish-age = "@DAYS@ days"

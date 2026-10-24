@@ -1,0 +1,12 @@
+{
+    "_meta": { "hash": { "sha256": "x" }, "pipfile-spec": 6 },
+    "default": {
+        "requests": { "hashes": ["sha256:x"], "index": "pypi", "version": "==2.19.0" },
+        "Flask_Login": { "version": "==0.6.0" },
+        "mylib": { "editable": true, "path": "." }
+    },
+    "develop": {
+        "pytest": { "version": "==7.0.0" },
+        "requests": { "version": "==2.19.0" }
+    }
+}

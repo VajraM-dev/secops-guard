@@ -1,0 +1,10 @@
+{
+  "name": "secops-guard",
+  "version": "0.1.0",
+  "description": "Supply-chain gate, exfiltration guard and security-scan skills for Claude Code",
+  "author": { "name": "Prathamesh Kulkarni" },
+  "homepage": "https://github.com/VajraM-dev/secops-guard",
+  "repository": "https://github.com/VajraM-dev/secops-guard",
+  "license": "MIT",
+  "keywords": ["security", "supply-chain", "hooks", "sast", "dependencies"]
+}

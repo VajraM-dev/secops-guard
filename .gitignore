@@ -1,0 +1,9 @@
+node_modules/
+*.secops-bak-*
+.DS_Store
+Thumbs.db
+
+# runtime state written by the hooks (never committed)
+.secops-state/
+secops-guard-state/
+*.log

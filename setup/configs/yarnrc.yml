@@ -1,0 +1,10 @@
+# secops-guard - yarn berry cooldown
+# Requires yarn >= 4.10.0 (berry). Not installed on this machine by default.
+# UNVERIFIED UNIT - THE INSTALLER NEVER WRITES THIS FILE.
+# The yarn docs show a duration string ("1w") while other sources report a plain
+# minute count, and a known bug reportedly ignores day suffixes. Writing the wrong
+# form could make `yarn install` fail, which is worse than having no cooldown, so
+# the installer only prints this line as a suggestion. Apply it by hand if you want
+# it, then confirm with `yarn config get npmMinimalAgeGate` and run a real install.
+# Exempt packages with npmPreapprovedPackages.
+npmMinimalAgeGate: @MINUTES@

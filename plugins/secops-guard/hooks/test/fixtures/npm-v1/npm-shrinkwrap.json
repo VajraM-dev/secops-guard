@@ -1,0 +1,16 @@
+{
+  "name": "old",
+  "version": "1.0.0",
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "minimist": { "version": "0.0.8", "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz" },
+    "mkdirp": {
+      "version": "0.5.1",
+      "requires": { "minimist": "0.0.8" },
+      "dependencies": { "minimist": { "version": "1.2.0" } }
+    },
+    "aliased": { "version": "npm:lodash@4.17.21" },
+    "gitdep": { "version": "github:user/repo#deadbeef" }
+  }
+}

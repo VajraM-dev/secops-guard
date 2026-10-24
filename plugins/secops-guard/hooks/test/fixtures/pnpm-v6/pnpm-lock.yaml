@@ -1,0 +1,26 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+
+dependencies:
+  lodash:
+    specifier: ^4.17.15
+    version: 4.17.15
+
+packages:
+
+  /lodash@4.17.15:
+    resolution: {integrity: sha512-x}
+    dev: false
+
+  /@babel/core@7.22.0(supports-color@5.5.0):
+    resolution: {integrity: sha512-y}
+    dependencies:
+      debug: 4.3.4(supports-color@5.5.0)
+
+  '/@types/node@20.8.0':
+    resolution: {integrity: sha512-z}
+
+  /debug@4.3.4(supports-color@5.5.0):
+    resolution: {integrity: sha512-w}

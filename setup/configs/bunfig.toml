@@ -1,0 +1,6 @@
+# secops-guard - bun cooldown (global ~/.bunfig.toml)
+# Requires bun >= 1.3. Unit: SECONDS (7 days = 604800).
+# Not installed on this machine by default.
+# Exempt packages with minimumReleaseAgeExcludes.
+[install]
+minimumReleaseAge = @SECONDS@

@@ -1,0 +1,9 @@
+# secops-guard - pnpm supply-chain cooldown (global config)
+# Requires pnpm >= 10.16.0. Unit: MINUTES (7 days = 10080).
+# pnpm 11 already defaults to 1440 (1 day) in non-strict mode; setting the key
+# yourself also switches minimumReleaseAgeStrict on by default (pnpm 11+), which
+# is written explicitly below so the behaviour is obvious.
+# Exempt packages with minimumReleaseAgeExclude (globs, pnpm >= 10.17.0).
+# Keys are camelCase in config.yaml.
+minimumReleaseAge: @MINUTES@
+minimumReleaseAgeStrict: true

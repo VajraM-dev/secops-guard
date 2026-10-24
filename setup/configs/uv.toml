@@ -1,0 +1,7 @@
+# secops-guard - uv / PyPI cooldown
+# Requires uv >= 0.9.17 for the RELATIVE duration form below. Older uv accepts only
+# an RFC 3339 timestamp or a P7D-style literal, which goes stale the day it is written,
+# so the installer skips this file rather than baking in a date. Upgrade: `uv self update`.
+# Exempt one package with: exclude-newer-package = { somepkg = false }
+# Env equivalent: UV_EXCLUDE_NEWER
+exclude-newer = "@DAYS@ days"

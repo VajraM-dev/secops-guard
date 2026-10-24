@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(~/.ssh/id_rsa)",
+      "Read(~/.ssh/id_ed25519)",
+      "Read(~/.ssh/id_ecdsa)",
+      "Read(~/.ssh/id_dsa)",
+      "Read(~/.ssh/*.pem)",
+      "Read(~/.ssh/*.key)",
+      "Read(~/.aws/credentials)",
+      "Read(~/.aws/sso/cache/**)",
+      "Read(~/.config/gcloud/application_default_credentials.json)",
+      "Read(~/.config/gcloud/credentials.db)",
+      "Read(~/.config/gcloud/access_tokens.db)",
+      "Read(~/AppData/Roaming/gcloud/application_default_credentials.json)",
+      "Read(~/AppData/Roaming/gcloud/credentials.db)",
+      "Read(~/AppData/Roaming/gcloud/access_tokens.db)",
+      "Read(~/.pypirc)",
+      "Read(~/.netrc)",
+      "Read(~/_netrc)",
+      "Read(~/.git-credentials)",
+      "Read(~/.cargo/credentials.toml)",
+      "Read(~/.config/gh/hosts.yml)",
+      "Read(~/AppData/Roaming/GitHub CLI/hosts.yml)",
+      "Read(~/AppData/Local/Google/Chrome/User Data/**/Login Data)",
+      "Read(~/AppData/Local/Microsoft/Edge/User Data/**/Login Data)",
+      "Read(~/AppData/Roaming/Mozilla/Firefox/Profiles/**/logins.json)",
+      "Read(~/AppData/Roaming/Mozilla/Firefox/Profiles/**/key4.db)",
+      "Read(~/Library/Application Support/Google/Chrome/**/Login Data)",
+      "Read(~/.mozilla/firefox/**/logins.json)",
+      "Edit(~/.claude/plugins/marketplaces/secops-guard/**)",
+      "Edit(~/.claude/plugins/repos/**/secops-guard/**)",
+      "Edit(~/.claude/secops-guard/**)",
+      "Edit(//C:/Program Files/ClaudeCode/managed-settings.json)",
+      "Edit(//Library/Application Support/ClaudeCode/managed-settings.json)",
+      "Edit(//etc/claude-code/managed-settings.json)"
+    ]
+  }
+}
